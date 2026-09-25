@@ -12,10 +12,10 @@ export function menuHTML(best) {
   return `
     <h1 class="title">60秒生存</h1>
     <p class="lede">核弹警报拉响，你只有 <b>60 秒</b> 冲进屋里抢救家人和物资，
-       然后躲进避难所活下去。能在第 8 天等到军方救援吗？</p>
+       然后躲进避难所活下去。能在第 6 天等到军方救援吗？</p>
     <div class="best">历史最佳：${best ? best.score + ' 分（第 ' + best.day + ' 天）' : '暂无'}</div>
     <button id="btn-start" class="btn-primary">开始生存</button>
-    <p class="hint">桌面：方向键 / WASD 移动　手机：拖动屏幕移动</p>`;
+    <p class="hint">桌面：方向键 / WASD 移动　手机：点按或拖动屏幕移动</p>`;
 }
 
 export function shelterTopHTML(game) {
@@ -23,7 +23,10 @@ export function shelterTopHTML(game) {
   const fam = FAMILY.map((f) => {
     const m = game.family.find((x) => x.id === f.id);
     const col = !m.alive ? '#999' : m.health < 35 ? PALETTE.red : m.mental < 35 ? PALETTE.purple : PALETTE.teal;
-    return `<span class="fam" style="color:${col}">${m.alive ? '●' : '○'} ${m.name}${m.alive ? ` <small>${m.health}血/${m.mental}精</small>` : ''}</span>`;
+    const bars = m.alive
+      ? `<span class="bars"><i class="h" style="width:${m.health}%"></i><i class="m" style="width:${m.mental}%"></i></span><small>${m.health}血/${m.mental}精</small>`
+      : '<small>已失联</small>';
+    return `<span class="fam" style="color:${col}"><span class="nm">${m.alive ? '●' : '○'} ${m.name}</span>${bars}</span>`;
   }).join('');
   return `<div class="shelter-top">
       <div class="day">第 <b>${game.day}</b> 天</div>

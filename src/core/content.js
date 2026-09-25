@@ -89,6 +89,15 @@ export const EVENTS = [
     ],
   },
   {
+    id: 'scout',
+    title: '派人外出搜刮',
+    text: '避难所外似乎还有物资，但辐射风险不小。',
+    options: [
+      { label: '派一名家人外出（带回食物饮水，有致病风险）', effect: { inv: { food: 2, water: 1 }, health: -10 } },
+      { label: '谁也不派，守在屋里', effect: { mental: -5 } },
+    ],
+  },
+  {
     id: 'rescue',
     title: '军方救援信号',
     text: '广播要求幸存者回应信号！这是离开废土的机会。',
