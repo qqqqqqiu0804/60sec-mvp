@@ -1,0 +1,11 @@
+{
+  "name": "sixty-seconds-survival-mvp",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "60秒生存 MVP - 零构建静态站点，核心逻辑与渲染解耦",
+  "scripts": {
+    "sim": "node scripts/sim.js",
+    "serve": "node scripts/serve.js"
+  }
+}

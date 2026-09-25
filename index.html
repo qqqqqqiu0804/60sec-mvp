@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>60秒生存 · MVP</title>
+<style>
+  :root{
+    --cream:#F4E9D8; --teal:#3FB8AF; --yellow:#E8B04B; --red:#C0392B;
+    --ink:#2B2B2B; --purple:#7A5C99;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%}
+  body{
+    background:var(--cream);color:var(--ink);
+    font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    display:flex;flex-direction:column;height:100vh;overflow:hidden;
+    background-image:radial-gradient(rgba(43,43,43,.05) 1px,transparent 1px);
+    background-size:18px 18px;
+  }
+  #app{flex:1;display:flex;flex-direction:column;min-height:0}
+  .screen{display:none;flex-direction:column;flex:1;min-height:0;padding:18px}
+  .screen[data-screen="scavenge"]{padding:0}
+
+  /* 菜单 / 结算 居中卡片 */
+  #screen-menu,#screen-ending{align-items:center;justify-content:center;text-align:center}
+  .title{font-size:clamp(32px,9vw,52px);margin:0 0 6px;letter-spacing:2px;color:var(--red);
+    text-shadow:2px 2px 0 var(--yellow)}
+  .lede{max-width:520px;line-height:1.8;font-size:15px}
+  .best{margin:10px 0;color:var(--purple);font-weight:600}
+  .hint{margin-top:14px;color:#777;font-size:13px}
+  .btn-primary{
+    margin-top:18px;border:none;border-radius:12px;padding:14px 34px;font-size:18px;font-weight:700;
+    background:var(--red);color:#fff;cursor:pointer;box-shadow:0 4px 0 #8e2a20;min-height:48px;
+  }
+  .btn-primary:active{transform:translateY(2px);box-shadow:0 2px 0 #8e2a20}
+
+  /* 搜刮画布 */
+  #game{width:100%;height:100%;display:block;touch-action:none;background:var(--cream)}
+
+  /* 避难所 */
+  #screen-shelter{align-items:center;justify-content:flex-start;padding-top:24px;overflow:auto}
+  .shelter-top{width:100%;max-width:560px;background:#fff;border:2px solid var(--ink);border-radius:14px;
+    padding:12px 14px;margin-bottom:16px;box-shadow:3px 3px 0 rgba(43,43,43,.15)}
+  .day{font-size:20px;font-weight:800}
+  .day b{color:var(--red);font-size:26px}
+  .inv{margin:8px 0;display:flex;flex-wrap:wrap;gap:6px}
+  .chip{background:var(--cream);border:1px solid var(--ink);border-radius:20px;padding:3px 10px;font-size:14px}
+  .fam-row{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px}
+  .fam small{opacity:.7}
+  .event-card{width:100%;max-width:560px;background:#fff;border:2px solid var(--ink);border-radius:14px;
+    padding:18px;box-shadow:4px 4px 0 var(--yellow)}
+  .ev-title{font-size:20px;font-weight:800;color:var(--red);margin-bottom:8px}
+  .ev-text{line-height:1.7;margin-bottom:14px}
+  .ev-opts{display:flex;flex-direction:column;gap:10px}
+  .opt{text-align:left;border:2px solid var(--ink);background:var(--cream);border-radius:10px;
+    padding:14px 16px;font-size:15px;cursor:pointer;min-height:48px;font-family:inherit}
+  .opt:active{background:var(--yellow)}
+
+  /* 结算 */
+  .ending-card{width:100%;max-width:480px;background:#fff;border:3px solid var(--ink);border-radius:16px;
+    padding:24px;box-shadow:5px 5px 0 var(--teal)}
+  .ending-card.win{border-color:var(--teal);box-shadow:5px 5px 0 var(--teal)}
+  .ending-card.lose{border-color:var(--ink);box-shadow:5px 5px 0 var(--ink)}
+  .end-title{font-size:26px;font-weight:800;margin-bottom:12px}
+  .ending-card.win .end-title{color:var(--teal)}
+  .ending-card.lose .end-title{color:var(--red)}
+  .end-line{margin:6px 0;font-size:15px}
+  .end-score{margin:14px 0;font-size:18px}
+  .end-score b{color:var(--red);font-size:24px}
+</style>
+</head>
+<body>
+  <div id="app">
+    <section class="screen" data-screen="menu" id="screen-menu"></section>
+    <section class="screen" data-screen="scavenge" id="screen-scavenge">
+      <canvas id="game"></canvas>
+    </section>
+    <section class="screen" data-screen="shelter" id="screen-shelter"></section>
+    <section class="screen" data-screen="ending" id="screen-ending"></section>
+  </div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
